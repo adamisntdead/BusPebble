@@ -10,12 +10,6 @@ var Settings = require('settings');
 // ------------------------------------------------------------------------
 // - ----------
 var BASE_URL = 'https://data.dublinked.ie/cgi-bin/rtpi';
-localStorage.getItem(favouriteStops);
-
-if (!localStorage.getItem(favouriteStops)) {
-	localStorage.setItem(favouriteStops, JSON.stringify([]));
-}
-var favouriteStops = JSON.parse(localStorage.getItem(favouriteStops));
 
 function getRealtimeData(stopId, callback) {
 	var requestUrl = BASE_URL + '/realtimebusinformation?stopid=' + stopId + '&format=json';
@@ -76,7 +70,7 @@ Settings
 		console.log('Recieved settings!');
 		var options = e.options;
 		var favouriteStops = options.favStops;
-		localStorage.setItem(favouriteStops, JSON.stringify(favouriteStops));
+		localStorage.setItem('favouriteStops', JSON.stringify(favouriteStops));
 	});
 
 // Main App
@@ -91,7 +85,8 @@ var main = new UI.Card({
 });
 
 main.on('click', 'select', function(e) {
-	if (favouriteStops.length === 0) {
+	var favouriteStops = JSON.parse(localStorage.getItem('favouriteStops'));
+	if (favouriteStops.length === 299) {
 		var card = new UI.Card({subtitle: 'Set Some Favourite Stops in the Settings on the Pebble App'});
 
 		card.show();
