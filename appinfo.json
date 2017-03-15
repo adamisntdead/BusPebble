@@ -4,7 +4,7 @@
     "configurable"
   ],
   "companyName": "adamisntdead",
-  "longName": "Dublin Bus RTPI",
+  "longName": "BusPebble - Dublin Bus RTPI",
   "resources": {
     "media": [
       {
@@ -31,7 +31,7 @@
     ]
   },
   "sdkVersion": "3",
-  "shortName": "Dublin Bus",
+  "shortName": "BusPebble",
   "targetPlatforms": [
     "aplite",
     "basalt",
