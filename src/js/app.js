@@ -80,13 +80,12 @@ var main = new UI.Card({
 	title: '  Dublin Bus',
 	subtitle: 'RTPI',
 	icon: 'images/menu_icon.png',
-	body: 'Press select to choose a stop from your favourites, or up to input a stop n' +
-			'umber.'
+	body: 'Press select to choose a stop from your favourites, or use your phone to add a stop'
 });
 
 main.on('click', 'select', function(e) {
 	var favouriteStops = JSON.parse(localStorage.getItem('favouriteStops'));
-	if (favouriteStops.length === 299) {
+	if (favouriteStops.length === 0) {
 		var card = new UI.Card({subtitle: 'Set Some Favourite Stops in the Settings on the Pebble App'});
 
 		card.show();
