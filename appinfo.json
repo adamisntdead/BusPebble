@@ -33,11 +33,7 @@
   "sdkVersion": "3",
   "shortName": "Dublin Bus",
   "targetPlatforms": [
-    "aplite",
-    "basalt",
-    "chalk",
-    "diorite",
-    "emery"
+    "diorite"
   ],
   "uuid": "133215f0-cf20-4c05-997b-3c9be5a64e5b",
   "versionCode": 1,
