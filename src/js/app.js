@@ -1,23 +1,21 @@
 // Imports
-// -------------------------------------------------------------------------
-// ------------------
+// ------------------------------------------------------------------------
+// - ------------------
 var ajax = require('ajax');
 var UI = require('ui');
 var Vector2 = require('vector2');
 var Settings = require('settings');
 
 // Helper Functions
-// -------------------------------------------------------------------------
-// ----------
+// ------------------------------------------------------------------------
+// - ----------
 var BASE_URL = 'https://data.dublinked.ie/cgi-bin/rtpi';
-var favouriteStops = [
-	{
-		stop: 3787,
-		notes: 'Home towards Skerries'
-	}, {
-		stop: 7602
-	}
-];
+localStorage.getItem(favouriteStops);
+
+if (!localStorage.getItem(favouriteStops)) {
+	localStorage.setItem(favouriteStops, JSON.stringify([]));
+}
+var favouriteStops = JSON.parse(localStorage.getItem(favouriteStops));
 
 function getRealtimeData(stopId, callback) {
 	var requestUrl = BASE_URL + '/realtimebusinformation?stopid=' + stopId + '&format=json';
@@ -71,22 +69,19 @@ function getAndDisplayRealtime(stopId) {
 // Settings in the pebble app, on the mobile device
 Settings
 	.config({
-		url: 'http://adamisntdead.github.io/BusPebble/'
+		url: 'http://adamisntdead.github.io/BusPebble/settings.html'
 	}, function(e) {
 		console.log('opened config');
 	}, function(e) {
 		console.log('Recieved settings!');
 		var options = e.options;
-		var firstName = options.firstname;
-		var lastName = options.lastname;
-		console.log(firstName + " " + lastName);
-		localStorage.setItem(1, firstName);
-		localStorage.setItem(2, lastName);
+		var favouriteStops = options.favStops;
+		localStorage.setItem(favouriteStops, JSON.stringify(favouriteStops));
 	});
 
 // Main App
-// -------------------------------------------------------------------------
-// ------------------
+// ------------------------------------------------------------------------
+// - ------------------
 var main = new UI.Card({
 	title: '  Dublin Bus',
 	subtitle: 'RTPI',
@@ -95,36 +90,32 @@ var main = new UI.Card({
 			'umber.'
 });
 
-main.on('click', 'up', function(e) {
-	var first_name = localStorage.getItem(1);
-  var last_name = localStorage.getItem(2);
-  var card = new UI.Card({
-    title: 'Welcome!',
-    body: 'Welcome, ' + first_name + " " + last_name
-  });
-  card.show();
-});
-
 main.on('click', 'select', function(e) {
-	var stopMenu = new UI.Menu({
-		sections: [
-			{
-				items: favouriteStops.map(function(stop) {
-					return {
-						title: stop.stop,
-						subtitle: stop.notes || '',
-						stopNum: parseInt(stop.stop)
-					}
-				})
-			}
-		]
-	});
+	if (favouriteStops.length === 0) {
+		var card = new UI.Card({subtitle: 'Set Some Favourite Stops in the Settings on the Pebble App'});
 
-	stopMenu.on('select', function(e) {
-		getAndDisplayRealtime(e.item.stopNum);
-	});
+		card.show();
+	} else {
+		var stopMenu = new UI.Menu({
+			sections: [
+				{
+					items: favouriteStops.map(function(stop) {
+						return {
+							title: stop.stop,
+							subtitle: stop.notes || '',
+							stopNum: parseInt(stop.stop)
+						}
+					})
+				}
+			]
+		});
 
-	stopMenu.show();
+		stopMenu.on('select', function(e) {
+			getAndDisplayRealtime(e.item.stopNum);
+		});
+
+		stopMenu.show();
+	}
 });
 
 main.show();
