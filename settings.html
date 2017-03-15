@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dublin Bus Pebble - Settings</title>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Pebble settings</h1>
+
+        <p>First name:</p>
+        <input type="text" id="first_name">
+        <p>Last name:</p>
+        <input type="text" id="last_name">
+        <br>
+        <button id="subButton">Submit</button>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(e) {
+            $("#subButton").click(function(e) {
+                var firstName = document.getElementById("first_name").value;
+                var lastName = document.getElementById("last_name").value;
+                var options = {
+                    firstname: firstName,
+                    lastname: lastName
+                };
+                document.location = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(options));
+            });
+        });
+    </script>
+</body>
+
+</html>
