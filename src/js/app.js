@@ -71,7 +71,7 @@ function getAndDisplayRealtime(stopId) {
 // Settings in the pebble app, on the mobile device
 Settings
 	.config({
-		url: 'http://adamisntdead.github.io/BusPebble/'
+		url: 'http://adamisntdead.github.io/BusPebble/settings.html'
 	}, function(e) {
 		console.log('opened config');
 	}, function(e) {
