@@ -35,7 +35,7 @@
   "targetPlatforms": [
     "diorite"
   ],
-  "uuid": "4adf46c0-0a1d-11e7-93ae-92361f002671"
+  "uuid": "4adf46c0-0a1d-11e7-93ae-92361f002671",
   "versionCode": 1,
   "versionLabel": "0.1",
   "watchapp": {
