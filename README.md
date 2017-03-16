@@ -1,4 +1,4 @@
-# BusPebble
+# BusPebble - Dublin Bus RTPI
 
 > Dublin Bus Realtime Information from your Pebble
 
